@@ -89,8 +89,8 @@ client.unfocused        #000000 #000000 #000000 #000000 #000000
 client.urgent           #d79921 #d79921  #282828 #cc241d
 
 
-# default_border 
-# none
+default_border 
+#none
 
 # start a terminal
 bindsym $mod+Return exec alacritty

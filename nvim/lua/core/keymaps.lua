@@ -33,18 +33,20 @@ local opts = { noremap = true, silent = true }
 -- <leader>e opens oil
 map("n", "<leader>e", ":Oil<CR>", opts)
 
-map('n', '<leader>h', ':nohlsearch<CR>', opts)
+map("n", "<leader>h", ":nohlsearch<CR>", opts)
 
-map("i", "/sout", "System.out.println<CR>", opts)
+map("i", "/sout",   "System.out.println<CR>", opts)
 
 -- Vertical movement improved
-map("n", "<C-u>", "<C-u>zz", opts)
-map("n", "<C-d>", "<C-d>zz", opts)
+map("n", "<C-u>",   "<C-u>zz", opts)
+map("n", "<C-d>",   "<C-d>zz", opts)
 
 
 -- Tabedit
-map("n", "<Tab>", ":tabnext<CR>", opts)
-map("n", "<leader><Tab>", ":tabprev<CR>", opts)
+map("n", "<A-l>",   ":tabnext<CR>", opts)
+map("n", "<A-h>",   ":tabprev<CR>", opts)
+map("n", "<A-Tab>", ":tabnew<CR>:Oil<CR>", opts)
+
 
 -- exit
 map("n", "<leader>pq", ":qa<CR>", opts)
@@ -59,3 +61,7 @@ map("t", "<Esc>", "<C-\\><C-n>", opts)
 
 -- movement
 map("n", "§", "$", opts)
+map("v", "§", "$", opts)
+map("i", "§", "<Esc><S-a>", opts)
+
+map("i", "<A-leader>", "<Esc><S-a>", opts)
