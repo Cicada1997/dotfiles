@@ -1,8 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- vim.diagnostic.config({ virtual_text = true })
-
 -- Cursorline
 vim.o.cursorline = true
 vim.o.cursorlineopt = 'number,line'
@@ -30,7 +28,6 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 
--- <leader>e opens oil
 map("n", "<leader>e", ":Oil<CR>", opts)
 
 map("n", "<leader>h", ":nohlsearch<CR>", opts)
@@ -41,12 +38,24 @@ map("i", "/sout",   "System.out.println<CR>", opts)
 map("n", "<C-u>",   "<C-u>zz", opts)
 map("n", "<C-d>",   "<C-d>zz", opts)
 
+-- marks
+-- map("n", "<leader>i", "`", opts)
+-- Loop through ASCII characters for a-z
+for i = 97, 122 do
+    local char = string.char(i)
+    local upper = char:upper()
+    local lower = char:lower()
+
+    vim.keymap.set("n", "m" .. char, "m" .. upper, { desc = "Set global mark " .. upper })
+    vim.keymap.set("n", "<leader>m" .. char, "m" .. lower, { desc = "Set global mark " .. upper })
+
+    vim.keymap.set("n", "<leader>i" .. char, "`" .. upper, { desc = "Jump to global mark " .. upper })
+end
 
 -- Tabedit
 map("n", "<A-l>",   ":tabnext<CR>", opts)
 map("n", "<A-h>",   ":tabprev<CR>", opts)
 map("n", "<A-Tab>", ":tabnew<CR>:Oil<CR>", opts)
-
 
 -- exit
 map("n", "<leader>pq", ":qa<CR>", opts)

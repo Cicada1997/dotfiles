@@ -16,12 +16,11 @@ return require('packer').startup(function(use)
     use 'ellisonleao/gruvbox.nvim'
     use 'nvim-lualine/lualine.nvim'
 
-    -- LSP
-    use {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        -- "neovim/nvim-lspconfig",
-    }
+    -- use {
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
+    -- }
 
     -- autocomplete
     use {
@@ -29,8 +28,6 @@ return require('packer').startup(function(use)
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-nvim-lsp',
         'L3MON4D3/LuaSnip',
-        'tpope/vim-surround',
-        'windwp/nvim-autopairs',
     }
 
     use {

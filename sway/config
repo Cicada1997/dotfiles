@@ -14,11 +14,12 @@ set $up k
 set $right l
 
 set $term alacritty
-set $browser firefox
+set $browser librewolf
 
 set $font JetBrains-Mono
 
 set $menu rofi -show run
+# set $menu dmenu
 
 ### Output configuration
 #
@@ -68,10 +69,31 @@ set $menu rofi -show run
 # Basics:
 #
 
-    exec_always swaybg --image ~/images/wallpaper/tree.jpg --mode fill
+    exec_always pkill waybar
+
+    default_border pixel 2
+    default_floating_border pixel 2
+
+    hide_edge_borders smart
+    # smart_borders on
+    # smart_gaps on
+
+    gaps vertical 20
+    gaps horizontal 20
+
+    titlebar_border_thickness 0
+
+    exec_always swaybg --image /home/cicada/images/background/gruvbox.png --mode fill
 
     input type:keyboard {
         xkb_layout "se"
+    }
+
+    # input type:pointer {
+    #     accel_profile flat
+    # }
+    input pointer:* {
+        accel_profile flat
     }
 
     set $font JetBrainsMonoNL Nerd Font
@@ -80,6 +102,69 @@ set $menu rofi -show run
     # font pango:JetBrainsMonoNL Nerd Font 14
     font pango:$font $font_size
 
+
+    # Second monitor setup
+    # output DP-2     mode 1920x1080@144Hz
+    # output HDMI-A-1 mode 1920x1080@144Hz
+    # output DP-1     mode 1920x1080@144Hz
+
+    # output DP-2 {
+    #     position 0 0
+    #     resolution 2560x1600@240Hz
+    #     enable
+    # }
+    #
+    # output DP-1 {
+    #     position 2560 0
+    #     resolution 1920x1080@144Hz
+    #     enable
+    # }
+    #
+    # output HDMI-A-1 {
+    #     position 4480 0
+    #     resolution 1920x1080@144Hz
+    #     enable
+    # }
+
+    output DP-2 {
+        position 0 0
+        resolution 1920x1080@240Hz
+        # enable
+    }
+    
+    output DP-1 {
+        position 1920 0
+        resolution 1920x1080@144Hz
+        # enable
+    }
+    
+    output HDMI-A-1 {
+        position 3840 0
+        resolution 1920x1080@144Hz
+        # enable
+    }
+
+
+
+    exec_always waybar
+
+    # pipewire stuff
+    exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+    exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
+
+    # exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    # exec_always {
+    #     # This tells xdg-desktop-portal to use the 'sway' backend first
+    #     export XDG_CURRENT_DESKTOP=sway
+    #     # Launch the portals (must be the wlr backend for Sway)
+    #     /usr/lib/xdg-desktop-portal &
+    #     /usr/lib/xdg-desktop-portal-wlr &
+    # }
+    #
+    # exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    # exec /usr/lib/xdg-desktop-portal
+    # exec /usr/lib/xdg-desktop-portal-wlr
 
     bindsym $mod+Return exec $term
 
@@ -98,6 +183,7 @@ set $menu rofi -show run
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r restart
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -109,6 +195,7 @@ set $menu rofi -show run
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
+
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -120,6 +207,7 @@ set $menu rofi -show run
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
+
     # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
@@ -139,6 +227,7 @@ set $menu rofi -show run
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -235,25 +324,30 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    bindsym Print exec grim ~/images/screenshots/ & grim ~/screenshot.png & grim - | wl-copy
+
+    bindsym Alt+Shift+S exec grim - | wl-copy
+    # bindsym Print exec grim -o ~/screenshot.png 
 
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+# bar {
+#     position top
+#
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command while date +'| %R | %Y-%m-%d |'; do sleep 1; done
+#
+#     colors {
+#         statusline #ffffffbb
+#         background #323232
+#         inactive_workspace #32323233 #32323233 #ffffff
+#         #5c5c5c
+#     }
+# }
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'| %R | %Y-%m-%d |'; do sleep 1; done
-
-    colors {
-        statusline #ffffff00
-        background #323232
-        inactive_workspace #32323233 #32323233 #ffffff
-        #5c5c5c
-    }
-}
+# bar swaybar_command waybar
 
 include /etc/sway/config.d/*

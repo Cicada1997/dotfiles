@@ -1,0 +1,378 @@
+/* --- Color Definitions using @define-color --- */
+@define-color background     #2D2021;
+/* @define-color foreground     #E4CEA8; */
+@define-color foreground     #FFFFFF;
+
+@define-color black          #32302F;
+@define-color red            #EA6962;
+@define-color green          #A9B665;
+@define-color yellow         #D8A657;
+@define-color blue           #7DAEA3;
+@define-color magenta        #D3869B;
+@define-color cyan           #89B482;
+/* @define-color white          #D4BE98; */
+@define-color white          #FFFFFF;
+
+@define-color bright_black   #32302F;
+@define-color bright_red     #EA6962;
+@define-color bright_green   #A9B665;
+@define-color bright_yellow  #D8A657;
+@define-color bright_blue    #7DAEA3;
+@define-color bright_magenta #D3869B;
+@define-color bright_cyan    #89B482;
+@define-color bright_white   #D4BE98;
+/* ------------------------------------------- */
+
+* {
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 19px;
+}
+
+window#waybar {
+    background-color: @black; /* Updated usage */
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    color: @foreground; /* Updated usage */
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: @black;
+}
+
+window#waybar.chromium {
+    background-color: @black;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    margin: 4px;
+    /* Avoid rounded borders under each button name */
+    border: none;
+
+    border-radius: 6px;
+    transition-duration: .5s;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    transition-duration: .5s;
+    background: inherit;
+    box-shadow: inset 0 -3px @white;
+}
+
+/* you can set a style on hover for any module like this */
+#pulseaudio:hover {
+    background-color: @yellow
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: @blue;
+    box-shadow: inset 0 -3px @white;
+    color: @foreground;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.focused, #workspaces button.active {
+    background-color: @cyan;
+    box-shadow: inset 0 -3px @white;
+}
+
+#workspaces button.urgent {
+    background-color: @red;
+}
+
+#mode {
+    background-color: @blue;
+    box-shadow: inset 0 -3px @white;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0px 14px;
+    margin: 3px 4px;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding-right: 21px;
+}
+
+#window,
+#workspaces {
+    margin: 4px 4px;
+    padding: 6px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    background-color: @blue;
+}
+
+#battery {
+    background-color: @white;
+    color: @black;
+}
+
+#battery.charging, #battery.plugged {
+    color: #ffffff;
+    background-color: @green;
+}
+
+@keyframes blink {
+    to {
+        background-color: @white;
+        color: @black;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: @red;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#power-profiles-daemon {
+    padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+    background-color: @red;
+    color: #ffffff;
+}
+
+#power-profiles-daemon.balanced {
+    background-color: @blue;
+    color: #ffffff;
+}
+
+#power-profiles-daemon.power-saver {
+    background-color: @green;
+    color: @black;
+}
+
+label:focus {
+    background-color: @black;
+}
+
+#cpu {
+    background-color: @green;
+    color: @black;
+}
+
+#memory {
+    background-color: @magenta;
+}
+
+#disk {
+    background-color: @bright_black;
+}
+
+#backlight {
+    background-color: @cyan;
+}
+
+#network {
+    background-color: @blue;
+}
+
+#network.disconnected {
+    background-color: @red;
+}
+
+#pulseaudio {
+    background-color: @yellow;
+    color: @black;
+}
+
+#pulseaudio.muted {
+    background-color: @cyan;
+    color: @green;
+}
+
+#wireplumber {
+    background-color: @white;
+    color: @black;
+}
+
+#wireplumber.muted {
+    background-color: @red;
+}
+
+#custom-media {
+    background-color: @green;
+    color: @bright_black;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: @green;
+}
+
+#custom-media.custom-vlc {
+    background-color: @yellow;
+}
+
+#temperature {
+    background-color: @yellow;
+}
+
+#temperature.critical {
+    background-color: @red;
+}
+
+#tray {
+    background-color: @blue;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @red;
+}
+
+#idle_inhibitor {
+    background-color: @black;
+}
+
+#idle_inhibitor.activated {
+    background-color: @white;
+    color: @black;
+}
+
+#mpd {
+    background-color: @green;
+    color: @bright_black;
+}
+
+#mpd.disconnected {
+    background-color: @red;
+}
+
+#mpd.stopped {
+    background-color: @cyan;
+}
+
+#mpd.paused {
+    background-color: @green;
+}
+
+#language {
+    background: @cyan;
+    color: @magenta;
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state {
+    background: @green;
+    color: @black;
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+	background-color: transparent;
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+    color: @white;
+}
+
+#privacy-item.screenshare {
+    background-color: @yellow;
+}
+
+#privacy-item.audio-in {
+    background-color: @green;
+}
+
+#privacy-item.audio-out {
+    background-color: @blue;
+}
